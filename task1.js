@@ -51,12 +51,12 @@ window.onload = function() {
     }
 
     function checkConditions(hours, minutes, snoozeInterval) {
-        if (hours > 23 || hours < 0 || !hours) {
+        if (hours > 23 || hours < 0 || !(hours + 1)) {
             result = 'Incorrect hours. Please change it.';
             return true;
         }
 
-        if (minutes > 59 || minutes < 0 || !minutes) {
+        if (minutes > 59 || minutes < 0 || !(minutes + 1)) {
             result = 'Incorrect minutes. Please change it.';
             return true;
         }
