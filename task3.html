@@ -76,12 +76,27 @@
                     }        
             
                     result = 1;
-            
+                    var divideFirst = 0,
+                        divideSecond = 0;
                     for (var i = 2; i < plates; i++) {
                         if (piecesFirstCake > piecesSecondCake) {
                             piecesFirstCake /= 2;
+                            var k = 0;
+                            if (divideFirst) k = 2;
+                            for (var j = 1; j <= divideFirst; j++) {
+                                k *= j;
+                            }
+                            i += k;
+                            divideFirst++;  
                         } else {
                             piecesSecondCake /= 2;
+                            var k = 0;
+                            if (divideSecond) k = 2;
+                            for (var j = 1; j <= divideSecond; j++) {
+                                k *= j;
+                            }
+                            i += k;
+                            divideSecond++;  
                         }
                     }
                     
