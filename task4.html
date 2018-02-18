@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" href="style.css" rel="stylesheet" media="screen">
+    <title>Algoritms tasks</title>
+  </head>
+  
+  <body>
+  <h1 class="title">Task 4</h1> 
+  
+  <p class="caption">Consider a rooted tree. A rooted tree has one 
+        special vertex called the root. All edges are directed from the root. 
+        Vertex u is called a child of vertex v and vertex v is called a parent 
+        of vertex u if there exists a directed edge from v to u. A vertex is 
+        called a leaf if it doesn't have children and has a parent. </br>
+
+        Let's call a rooted tree a spruce if its every non-leaf vertex has at 
+        least 3 leaf children. You are given a rooted tree, check whether it's 
+        a spruce. </br>
+        
+        The definition of a rooted tree can be found here.
+    </p>
+
+    <div class="data">Please enter the data:</div>
+
+    <label>
+      <div class="label">The number of vertices in the tree :</div>
+      <input type="text" placeholder="4" data-function="vertexes">
+    </label>
+  
+    <label>
+      <div class="label">The index of the parent for each vertexes:</div>
+      <input type="text" placeholder="1 1 1" data-function="indexes">
+    </label>  
+
+    <div class="answer"><strong>Answer:</strong> <span ></span></div>
+    
+    <div class="solution">Solution:</div>
+    <div class="code-wrap">
+      <textarea class="code code4">
+            window.onload = function() {
+                var indexes,
+                    vertexes, 
+                    outputAnswer = document.querySelector('.answer span'),
+                    inputVertexes = document.querySelector('input[data-function="vertexes"]'),
+                    inputIndexes = document.querySelector('input[data-function="indexes"]'),
+                    result = 'No';
+                    
+                    inputVertexes.onchange = function() {
+                    readData();
+                    isSprute(vertexes, indexes);
+                };
+            
+                inputIndexes.onchange = function() {
+                    readData();
+                    isSprute(vertexes, indexes);
+                };
+                
+                function readData() {
+                    vertexes = +document.querySelector('input[data-function="vertexes"]').value;
+                    indexes = document.querySelector('input[data-function="indexes"]').value.split(' ');
+                    indexes = changeStringArrToNumber(indexes);
+                } 
+                
+                function changeStringArrToNumber (arr) {
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i] = (+arr[i]);
+                    }
+            
+                    return arr;
+                }
+            
+                function isSprute(vertexes, indexes) {        
+                    var leafs = [];
+            
+                    if (checkConditions(vertexes, indexes)) {
+                        outputAnswer.innerHTML = result;
+                        return;
+                    }        
+            
+                    result = 'No';
+            
+                    for (var i = 0; i < indexes.length; i++) {
+                        if (indexes[i] == 1) {
+                            leafs.push(i);
+                        } else if (leafs.indexOf(indexes[i]) + 1) {
+                            leafs.splice(leafs.indexOf(indexes[i]), 1);
+                        }
+                    }
+                    
+                    if (leafs.length >= 3) result = "Yes";
+            
+                    outputAnswer.innerHTML = result;
+                }
+            
+                function checkConditions(vertexes, indexes) {
+                    if (vertexes < 3) {
+                        result = 'Incorrect number of vertexes (need start from 3). Please change it.';
+                        return true;
+                    }
+            
+                    if (indexes.length != vertexes - 1) {
+                        result = 'Incorrect indexes value. Please change it.';
+                        return true;
+                    }
+                
+                    for (var i = 0; i < indexes.length; i++) {
+                        if (indexes[i] <= 0) {
+                            result = 'Value of ' + i + '-th index incorrect. Please change it.';
+                            return true;
+                        }
+                    }
+            
+                    return false;
+                }
+            };
+      </textarea>
+  </div>
+
+  <script src="task4.js"></script>
+  </body>
+  <html>

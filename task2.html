@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" href="style.css" rel="stylesheet" media="screen">
+    <title>Algoritms tasks</title>
+  </head>
+  
+  <body>
+  <h1 class="title">Task 2</h1> 
+  
+    <p class="caption">Luba thinks about watering her garden. 
+        The garden can be represented as a segment of length k. 
+        Luba has got n buckets, the i-th bucket allows her to water 
+        some continuous subsegment of garden of length exactly a<sub>i</sub> each hour. 
+        Luba can't water any parts of the garden that were already watered,
+        also she can't water the ground outside the garden.
+        Luba has to choose one of the buckets in order to water the garden as 
+        fast as possible (as mentioned above, each hour she will water some 
+        continuous subsegment of length ai if she chooses the i-th bucket). 
+        Help her to determine the minimum number of hours she has to spend 
+        watering the garden. It is guaranteed that Luba can always choose a 
+        bucket so it is possible water the garden.
+        See the examples for better understanding.
+    </p>
+
+    <div class="data">Please enter the data:</div>
+
+    <label>
+      <div class="label">The number of buckets and the length of the garden, respectively.:</div>
+      <input type="text" placeholder="3 6" data-function="buckets-garden">
+    </label>
+  
+    <label>
+      <div class="label">The length of the segment that can be watered by the i-th bucket in one hour:</div>
+      <input type="text" placeholder="2 3 5" data-function="value-buckets">
+    </label>   
+
+    <div class="answer"><strong>Answer:</strong> <span ></span></div>
+    
+    <div class="solution">Solution:</div>
+    <div class="code-wrap">
+      <textarea class="code code2">
+          window.onload = function() {
+            var buckets,
+                lengthGarden, 
+                bucketsGarden,
+                outputAnswer = document.querySelector('.answer span'),
+                inputBucketsGarden = document.querySelector('input[data-function="buckets-garden"]'),
+                inputValueBuckets = document.querySelector('input[data-function="value-buckets"]'),
+                result = Infinity,
+                valueBuckets;
+                
+            inputBucketsGarden.onchange = function() {
+                readData();
+                findSmallestHours(buckets, lengthGarden, valueBuckets);
+            };
+        
+            inputValueBuckets.onchange = function() {
+                readData();
+                findSmallestHours(buckets, lengthGarden, valueBuckets);
+            };
+            
+            function readData() {
+                bucketsGarden = document.querySelector('input[data-function="buckets-garden"]').value.split(' ');
+                buckets = +bucketsGarden[0];
+                lengthGarden = +bucketsGarden[1];
+                valueBuckets = document.querySelector('input[data-function="value-buckets"]').value.split(' ');
+                valueBuckets = changeStringArrToNumber(valueBuckets);
+            } 
+            
+            function changeStringArrToNumber (arr) {
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i] = (+arr[i]);
+                }
+        
+                return arr;
+            }
+        
+            function findSmallestHours(buckets, lengthGarden, valueBuckets) {        
+        
+                if (checkConditions(buckets, lengthGarden, valueBuckets)) {
+                    outputAnswer.innerHTML = result;
+                    return;
+                }        
+        
+                result = Infinity;
+        
+                for (var i = 0; i < valueBuckets.length; i++) {
+                    var value = 0,
+                        hours = 0;
+                    while (value < lengthGarden) {
+                        value += valueBuckets[i];
+                        hours ++;
+                        if (value == lengthGarden) {
+                            if (hours < result) result = hours;
+                        }
+                    }
+                }
+                
+                outputAnswer.innerHTML = result;
+            }
+        
+            function checkConditions(buckets, lengthGarden, valueBuckets) {
+                if (buckets < 1) {
+                    result = 'Incorrect number of buckets. Please change it.';
+                    return true;
+                }
+        
+                if (lengthGarden < 1) {
+                    result = 'Incorrect length of garden. Please change it.';
+                    return true;
+                }
+        
+                if (valueBuckets.length != buckets) {
+                    result = 'You didn\'t enter value of all buckets. Please change it.';
+                    return true;
+                }
+            
+                for (var i = 0; i < buckets.length; i++) {
+                    if (buckets[i] <= 0) {
+                        result = 'Value of ' + i + '-th bucket incorrect. Please change it.';
+                        return true;
+                    }
+                }
+        
+                return false;
+            }
+        };
+      </textarea>
+  </div>
+
+	<script src="task2.js"></script>
+  </body>
+  <html>

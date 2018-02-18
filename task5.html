@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" href="style.css" rel="stylesheet" media="screen">
+    <title>Algoritms tasks</title>
+  </head>
+  
+  <body>
+  <h1 class="title">Task 5</h1> 
+  
+    <p class="caption">Eighth-grader Vova is on duty today in the class. 
+        After classes, he went into the office to wash the board, and 
+        found on it the number n. He asked what is this number and the 
+        teacher of mathematics Inna Petrovna answered Vova that n is the 
+        answer to the arithmetic task for first-graders. In the textbook, 
+        a certain positive integer x was given. The task was to add x to the 
+        sum of the digits of the number x written in decimal numeral system. </br>
+        Since the number n on the board was small, Vova quickly guessed 
+        which x could be in the textbook. Now he wants to get a program 
+        which will search for arbitrary values of the number n for all 
+        suitable values of x or determine that such x does not exist. 
+        Write such a program for Vova.
+    </p>
+
+    <div class="data">Please enter the data:</div>
+
+    <label>
+      <div class="label">Please type the number n:</div>
+      <input type="text" placeholder="21" data-function="number">
+    </label>  
+
+    <div class="answer"><strong>Answer:</strong> <span ></span></div>
+    
+    <div class="solution">Solution:</div>
+    <div class="code-wrap">
+      <textarea class="code code5">
+            window.onload = function() {
+                var outputAnswer = document.querySelector('.answer span'),
+                    inputNumber = document.querySelector('input[data-function="number"]'),
+                    number = 0,
+                    result = 0;
+                    
+                inputNumber.onchange = function() {       
+                    number = +document.querySelector('input[data-function="number"]').value;
+                    findX(number);
+                };
+            
+                function  findX(number) {        
+            
+                    if (checkConditions(number)) {
+                        outputAnswer.innerHTML = result;
+                        return;
+                    }        
+            
+                    result = 0;
+            
+                    for (var i = 0; i < number; i++) {
+                        var sum = i;
+                        var line = String(i);
+            
+                        for (var j = 0; j < line.length; j++) {
+                            sum += ( +line[j] );
+                        }
+            
+                        if (sum == number) {
+                            if (result) result += (i + " ");
+                            else result = i + " ";
+                        }
+                    }
+                    
+                    outputAnswer.innerHTML = result;
+                }
+            
+                function checkConditions(number) {
+                    if (number < 0) {
+                        result = 'Incorrect number. Please change it.';
+                        return true;
+                    }
+            
+                    return false;
+                }
+            };
+      </textarea>
+  </div>
+
+	<script src="task5.js"></script>
+  </body>
+  <html>

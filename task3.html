@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" href="style.css" rel="stylesheet" media="screen">
+    <title>Algoritms tasks</title>
+  </head>
+  
+  <body>
+  <h1 class="title">Task 3</h1> 
+  
+    <p class="caption">It's New Year's Eve soon, so Ivan decided it's high 
+        time he started setting the table. Ivan has bought two cakes and cut 
+        them into pieces: the first cake has been cut into a pieces, and the 
+        second one — into b pieces. </br>
+
+        Ivan knows that there will be n people at the celebration 
+        (including himself), so Ivan has set n plates for the cakes. 
+        Now he is thinking about how to distribute the cakes between 
+        the plates. Ivan wants to do it in such a way that all following 
+        conditions are met:</br>
+
+    </p>
+        <div class="caption__ol">
+            <ol>
+                <li>Each piece of each cake is put on some plate;</li>
+                <li>Each plate contains at least one piece of cake;</li>
+                <li>No plate contains pieces of both cakes.</li>
+            </ol></br>
+        </div>
+    <p class="caption">
+        To make his guests happy, Ivan wants to distribute the cakes in 
+        such a way that the minimum number of pieces on the plate is 
+        maximized. Formally, Ivan wants to know the maximum possible 
+        number x such that he can distribute the cakes according to the 
+        aforementioned conditions, and each plate will contain at least x 
+        pieces of cake.</br>
+        
+        Help Ivan to calculate this number x!
+    </p>
+
+    <div class="data">Please enter the data:</div>
+
+    <label>
+      <div class="label">Please type he number of plates, the number of pieces of the first cake, and the number of pieces of the second cake, respectively:</div>
+      <input type="text" placeholder="5 2 3" data-function="data">
+    </label>  
+
+    <div class="answer"><strong>Answer:</strong> <span ></span></div>
+    
+    <div class="solution">Solution:</div>
+    <div class="code-wrap">
+      <textarea class="code code3">
+            window.onload = function() {
+                var outputAnswer = document.querySelector('.answer span'),
+                    inputData = document.querySelector('input[data-function="data"]'),
+                    data,
+                    plates,
+                    piecesFirstCake,
+                    piecesSecondCake,
+                    result = 0;
+                    
+                inputData.onchange = function() {       
+                    data = document.querySelector('input[data-function="data"]').value.split(' ');
+                    plates = +data[0];
+                    piecesFirstCake = +data[1];
+                    piecesSecondCake = +data[2];
+                    findMinimumPiecesInPlate(plates, piecesFirstCake, piecesSecondCake);
+                };
+            
+                function findMinimumPiecesInPlate(plates, piecesFirstCake, piecesSecondCake) {        
+            
+                    if (checkConditions(plates, piecesFirstCake, piecesSecondCake)) {
+                        outputAnswer.innerHTML = result;
+                        return;
+                    }        
+            
+                    result = 1;
+            
+                    for (var i = 2; i < plates; i++) {
+                        if (piecesFirstCake > piecesSecondCake) {
+                            piecesFirstCake /= 2;
+                        } else {
+                            piecesSecondCake /= 2;
+                        }
+                    }
+                    
+                    result = Math.min(Math.floor(piecesFirstCake), Math.floor(piecesSecondCake)) || 1;
+                    outputAnswer.innerHTML = result;
+                }
+            
+                function checkConditions(plates, piecesFirstCake, piecesSecondCake) {
+                    if (plates < 2) {
+                        result = 'Incorrect number of plates. Please change it.';
+                        return true;
+                    }
+            
+                    if (piecesFirstCake < 1) {
+                        result = 'Incorrect pieces of first cake. Please change it.';
+                        return true;
+                    }
+            
+                    if (piecesSecondCake < 1) {
+                        result = 'Incorrect pieces of second cake. Please change it.';
+                        return true;
+                    }
+            
+                    return false;
+                }
+            };
+      </textarea>
+  </div>
+
+	<script src="task3.js"></script>
+  </body>
+  <html>
